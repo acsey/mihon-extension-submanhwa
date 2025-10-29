@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="eu.kanade.tachiyomi.extension.es.submanhwa">
+    <application
+        android:label="SubManhwa (ES)"
+        android:allowBackup="false"
+        android:supportsRtl="true" />
+</manifest>

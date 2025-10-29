@@ -1,1 +1,39 @@
-name: Build APK
+name: Build APKs
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Licenses
+        run: yes | sdkmanager --licenses
+
+      - name: Build ES
+        run: ./gradlew :extensions:es-submanhwa:assembleRelease
+
+      - name: Build EN
+        run: ./gradlew :extensions:en-submanhwa:assembleRelease
+
+      - name: Upload APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: submanhwa-apks
+          path: |
+            extensions/es-submanhwa/build/outputs/apk/release/*.apk
+            extensions/en-submanhwa/build/outputs/apk/release/*.apk
