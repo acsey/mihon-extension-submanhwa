@@ -12,6 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Prepare Gradle wrapper jar
+        run: |
+          mkdir -p gradle/wrapper
+          curl -L -o gradle/wrapper/gradle-wrapper.jar https://repo1.maven.org/maven2/org/gradle/gradle-wrapper/8.6/gradle-wrapper-8.6.jar
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -28,10 +33,10 @@ jobs:
         run: yes | sdkmanager --licenses
 
       - name: Build ES
-        run: ./gradlew :extensions:es-submanhwa:assembleRelease
+        run: bash ./gradlew :extensions:es-submanhwa:assembleRelease
 
       - name: Build EN
-        run: ./gradlew :extensions:en-submanhwa:assembleRelease
+        run: bash ./gradlew :extensions:en-submanhwa:assembleRelease
 
       - name: Upload APKs
         uses: actions/upload-artifact@v4
