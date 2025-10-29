@@ -8,7 +8,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        // Tachiyomi/Mihon sources are published under JitPack or Maven Central depending on fork
         maven { url = uri("https://jitpack.io") }
     }
 }
